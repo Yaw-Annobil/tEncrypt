@@ -93,17 +93,28 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.steg.tencrypt.ui.HistoryFragment"
-        android:label="History"/>
+        android:label="History"
+        >
+        <action
+            android:id="@+id/fullscreen"
+            app:destination="@id/fullScreenFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/setFragment"
-        android:name="com.steg.tencrypt.ui.SetFragment"
-        android:label="Sets"/>
+        android:name="com.steg.tencrypt.ui.MytCryptsFragment"
+        android:label="Sets">
+
+    </fragment>
 
     <fragment
         android:id="@+id/templateFragment"
         android:name="com.steg.tencrypt.ui.HistoryFragment"
-        android:label="Templates"/>
+        android:label="Templates">
+        <action
+            android:id="@+id/fullscreen"
+            app:destination="@id/fullScreenFragment"/>
+    </fragment>
 
 
     <fragment
@@ -125,7 +136,6 @@
         <action
             android:id="@+id/template"
             app:destination="@id/templateFragment"/>
-
     </fragment>
 
 </navigation>

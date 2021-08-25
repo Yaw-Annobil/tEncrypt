@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/splashFragment"
+    >
+
+    <fragment
+        android:id = "@+id/splashFragment"
+        android:name="com.steg.tencrypt.ui.SplashFragment"
+        android:label="SplashScreen">
+        <action
+            android:id="@+id/welcome"
+            app:destination="@id/createPinFragment"/>
+        <action
+            android:id="@+id/welcomeBack"
+            app:destination="@id/PinFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPinFragment"
+        android:name="com.steg.tencrypt.ui.CreatePinFragment"
+        android:label="createPin">
+        <action
+            android:id="@+id/home"
+            app:destination="@id/homeFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/PinFragment"
+        android:name="com.steg.tencrypt.ui.PinFragment"
+        android:label="Pin"
+        >
+        <action
+            android:id="@+id/home"
+            app:destination="@id/homeFragment"/>
+        <action
+            android:id="@+id/forgotPassword"
+            app:destination="@id/resetFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/resetFragment"
+        android:name="com.steg.tencrypt.ui.ResetPin"
+        android:label="Rest Password">
+        <action
+            android:id="@+id/home"
+            app:destination="@id/homeFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fullScreenFragment"
+        android:name="com.steg.tencrypt.ui.FullScreenFragment"
+        android:label="Full Screen">
+        <argument
+            app:argType="string"
+            android:name="filePath"/>
+        <argument
+            android:name="textData"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.steg.tencrypt.ui.PreviewFragment"
+        android:label="Preview">
+        <argument
+            android:name="filePath"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/encryptFragment"
+        android:name="com.steg.tencrypt.ui.EncryptFragment"
+        android:label="Encrypt Fragment"
+        >
+        <action
+            android:id="@+id/preview"
+            app:destination="@id/previewFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/decryptFragment"
+        android:name="com.steg.tencrypt.ui.DecryptFragment"
+        android:label="Decrypt Fragment" >
+        <argument
+            app:argType="string"
+            android:name="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.steg.tencrypt.ui.HistoryFragment"
+        android:label="History"/>
+
+    <fragment
+        android:id="@+id/setFragment"
+        android:name="com.steg.tencrypt.ui.SetFragment"
+        android:label="Sets"/>
+
+    <fragment
+        android:id="@+id/templateFragment"
+        android:name="com.steg.tencrypt.ui.HistoryFragment"
+        android:label="Templates"/>
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.steg.tencrypt.ui.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/encrypt"
+            app:destination="@id/encryptFragment"/>
+        <action
+            android:id="@+id/decrypt"
+            app:destination="@id/decryptFragment"/>
+        <action
+            android:id="@+id/history"
+            app:destination="@id/historyFragment"/>
+        <action
+            android:id="@+id/set"
+            app:destination="@id/setFragment"/>
+        <action
+            android:id="@+id/template"
+            app:destination="@id/templateFragment"/>
+
+    </fragment>
+
+</navigation>

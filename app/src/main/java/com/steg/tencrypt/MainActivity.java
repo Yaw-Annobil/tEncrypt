@@ -10,6 +10,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.steg.tencrypt.databinding.ActivityMainBinding;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
@@ -21,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         NavController nav =
-                ((NavHostFragment)getSupportFragmentManager()
-                        .findFragmentById(R.id.nav_host))
+                ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
+                        .findFragmentById(R.id.nav_host)))
                         .getNavController();
 
         AppBarConfiguration configuration =

@@ -2,4 +2,18 @@
 <resources>
     <dimen name="tcrypt_standard_dimen">16dp</dimen>
     <dimen name="home_card_height">150dp</dimen>
+
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
+    <dimen name="standard">16dp</dimen>
+    <dimen name="standard_medium">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="span_count">3</dimen>
+
+    <dimen name="card_side_margin">12dp</dimen>
+    <dimen name="card_bottom_margin">26dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="gallery_header_margin">24dp</dimen>
+
 </resources>

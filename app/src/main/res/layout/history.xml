@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/encrypt_text"
             android:src="@drawable/img"
+            tools:src="@tools:sample/backgrounds/scenic"
             android:contentDescription="@string/encrypt"
             android:scaleType="centerCrop"/>
         <TextView

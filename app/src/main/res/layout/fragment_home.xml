@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/template"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="encrypt, history"/>
+
+    <com.steg.tencrypt.utilities.MaskedCardView
+        android:id="@+id/encrypt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_card_height"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="@dimen/tcrypt_standard_dimen"
+        android:layout_marginRight="@dimen/tcrypt_standard_dimen"
+        android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
+        android:layout_marginStart="@dimen/tcrypt_standard_dimen"
+        android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
+        android:background="@color/encrypt_color"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/encrypt_text"
+                android:src="@drawable/image_encrypt"
+                android:contentDescription="@string/encrypt"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/encrypt_text"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.steg.tencrypt.utilities.MaskedCardView>
+
+    <com.steg.tencrypt.utilities.MaskedCardView
+        android:id="@+id/decrypt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_card_height"
+        app:layout_constraintStart_toStartOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:layout_marginTop="@dimen/tcrypt_standard_dimen"
+        android:layout_marginRight="@dimen/tcrypt_standard_dimen"
+        android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
+        android:layout_marginStart="@dimen/tcrypt_standard_dimen"
+        android:layout_marginEnd="@dimen/tcrypt_standard_dimen"        android:background="@color/encrypt_color"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/decrypt_text"
+                android:src="@drawable/image_key"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/decrypt"/>
+            <TextView
+                android:id="@+id/decrypt_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.steg.tencrypt.utilities.MaskedCardView>
+
+    <com.steg.tencrypt.utilities.MaskedCardView
+        android:id="@+id/history"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_card_height"
+        app:layout_constraintEnd_toEndOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/encrypt"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="@dimen/tcrypt_standard_dimen"
+        android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
+        android:layout_marginStart="@dimen/tcrypt_standard_dimen"
+        android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
+        android:background="@color/encrypt_color"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/history_text"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_history"
+                android:contentDescription="@string/history"/>
+            <TextView
+                android:id="@+id/history_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.steg.tencrypt.utilities.MaskedCardView>
+
+    <com.steg.tencrypt.utilities.MaskedCardView
+        android:id="@+id/set"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_card_height"
+        app:layout_constraintStart_toStartOf="@id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/decrypt"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="@dimen/tcrypt_standard_dimen"
+        android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
+        android:layout_marginStart="@dimen/tcrypt_standard_dimen"
+        android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
+        android:background="@color/encrypt_color"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/set_text"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_sample"
+                android:contentDescription="@string/set"/>
+            <TextView
+                android:id="@+id/set_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.steg.tencrypt.utilities.MaskedCardView>
+
+    <com.steg.tencrypt.utilities.MaskedCardView
+        android:id="@+id/template"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/home_card_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardPreventCornerOverlap="false"
+        android:elevation="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="@dimen/tcrypt_standard_dimen"
+        android:layout_marginRight="@dimen/tcrypt_standard_dimen"
+        android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
+        android:layout_marginStart="@dimen/tcrypt_standard_dimen"
+        android:layout_marginEnd="@dimen/tcrypt_standard_dimen"        android:background="@color/template_color"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/template_text"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_template"
+                android:padding="@dimen/tcrypt_standard_dimen"
+                android:contentDescription="@string/template"/>
+            <TextView
+                android:id="@+id/template_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.steg.tencrypt.utilities.MaskedCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

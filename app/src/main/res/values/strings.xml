@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">tEncrypt</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="history">History</string>
+    <string name="set">Set</string>
+    <string name="template">Template</string>
 </resources>

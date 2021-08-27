@@ -1,6 +1,7 @@
 package com.steg.tencrypt;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -19,17 +20,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_main);
 
         NavController nav =
-                ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
-                        .findFragmentById(R.id.nav_host)))
+                ((NavHostFragment)getSupportFragmentManager()
+                        .findFragmentById(R.id.nav_host))
                         .getNavController();
 
         AppBarConfiguration configuration =
                 new AppBarConfiguration.Builder(nav.getGraph()).build();
-
-        NavigationUI.setupWithNavController(null, nav,configuration);
+        NavigationUI.setupWithNavController(findViewById(R.id.toolbar),nav,configuration);
     }
 }

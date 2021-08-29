@@ -55,5 +55,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
+<<<<<<< HEAD
 
+=======
+>>>>>>> b55ae959a9b61ca00ea3a27558a857c72468219d
 }

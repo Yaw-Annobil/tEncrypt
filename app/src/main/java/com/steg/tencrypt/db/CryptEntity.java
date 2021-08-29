@@ -6,11 +6,10 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class CryptEntity {
-    @PrimaryKey
-    public int id;
-
+    @PrimaryKey;
     @NonNull
     public String filePath;
+
     public String textData;
 
 }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import com.steg.tencrypt.Steg.Steganography;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * It is responsible for encrypting the textData into the image file

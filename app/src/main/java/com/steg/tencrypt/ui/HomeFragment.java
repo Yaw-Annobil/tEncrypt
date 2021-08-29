@@ -46,10 +46,10 @@ public class HomeFragment extends Fragment {
                 .navigate(HomeFragmentDirections.decrypt("")));
 
         binding.template.setOnClickListener(v-> NavHostFragment.findNavController(this)
-                .navigate(HomeFragmentDirections.decrypt("")));
+                .navigate(HomeFragmentDirections.template()));
 
         binding.history.setOnClickListener(v-> NavHostFragment.findNavController(this)
-                .navigate(HomeFragmentDirections.decrypt("")));
+                .navigate(HomeFragmentDirections.history()));
 
 
     }

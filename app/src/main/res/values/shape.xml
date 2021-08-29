@@ -9,6 +9,15 @@
         <item name="cornerSizeBottomLeft">@dimen/card_corner_radius</item>
     </style>
 
+    <style name="ShapeAppearance.Sunflower.Card2" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">rounded</item>
+
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">@dimen/card_corner_radius</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/card_corner_radius</item>
+    </style>
+
     <style name="ShapeAppearance.Sunflower.Card.Inverse" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
 

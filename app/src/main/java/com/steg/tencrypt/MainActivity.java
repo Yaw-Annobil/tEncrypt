@@ -8,19 +8,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.steg.tencrypt.databinding.ActivityMainBinding;
-
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+//    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_main);
 
         NavController nav =
                 ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()

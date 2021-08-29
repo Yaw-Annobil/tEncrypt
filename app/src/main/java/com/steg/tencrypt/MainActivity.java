@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
                         .findFragmentById(R.id.nav_host))
                         .getNavController();
 
+
+
         AppBarConfiguration configuration =
                 new AppBarConfiguration.Builder(nav.getGraph()).build();
         NavigationUI.setupWithNavController(findViewById(R.id.toolbar),nav,configuration);

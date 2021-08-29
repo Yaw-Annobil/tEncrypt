@@ -4,4 +4,17 @@
     android:layout_height="match_parent"
     android:background="#281E8F">
 
+    <ImageView
+        android:layout_width="406dp"
+        android:layout_height="573dp"
+        android:layout_marginBottom="@dimen/tcrypt_standard_dimen"
+        android:contentDescription="@string/encrypt"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/encrypt_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

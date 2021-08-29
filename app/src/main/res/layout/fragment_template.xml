@@ -2,6 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/template_color">
+
+
+
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/template"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="encrypt, history"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,7 @@ public class EncryptFragment extends Fragment {
     EncryptsMotor motor;
     Uri EncryptedUri;
     Uri selectedImageUri;
+    String textData;
 
     @Nullable
     @Override
@@ -53,7 +54,7 @@ public class EncryptFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                motor.setTextData(String.valueOf(charSequence));
+                textData = String.valueOf(charSequence);
             }
 
             @Override
@@ -69,7 +70,7 @@ public class EncryptFragment extends Fragment {
     void encrypt(View view){
         motor.setFilePath(selectedImageUri);
         if (validateInputData()){
-            motor.encrypt();
+            motor.encrypt(selectedImageUri,textData);
             motor.getViewState().observe(this, encryptViewState -> {
                 binding.progressCircular.setVisibility(encryptViewState.isLoading?View.VISIBLE:View.GONE);
 

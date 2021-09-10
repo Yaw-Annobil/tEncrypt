@@ -14,7 +14,6 @@ public class EncryptsMotor extends AndroidViewModel {
     Uri filePath;
     String TAG = EncryptsMotor.class.getSimpleName();
     String textData;
-
     private final MutableLiveData<EncryptViewState> viewStates = new MutableLiveData<>();
     public EncryptsMotor(@NonNull Application application) {
         super(application);

@@ -2,7 +2,9 @@ package com.steg.tencrypt.ui;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,22 @@ public class EncryptFragment extends Fragment {
 
         //initialize the motor
         motor = new ViewModelProvider(this).get(EncryptsMotor.class);
+
+        binding.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                motor.setTextData(String.valueOf(charSequence));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         binding.selectImage.setOnClickListener(this::chooser);
         binding.done.setOnClickListener(this::encrypt);

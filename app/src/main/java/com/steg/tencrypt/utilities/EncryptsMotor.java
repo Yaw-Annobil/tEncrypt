@@ -2,6 +2,7 @@ package com.steg.tencrypt.utilities;
 
 import android.app.Application;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 public class EncryptsMotor extends AndroidViewModel {
     EncryptRepository repository;
     Uri filePath;
+    String TAG = EncryptsMotor.class.getSimpleName();
     String textData;
     private final MutableLiveData<EncryptViewState> viewStates = new MutableLiveData<>();
     public EncryptsMotor(@NonNull Application application) {
@@ -19,30 +21,24 @@ public class EncryptsMotor extends AndroidViewModel {
         viewStates.setValue(new EncryptViewState(true,null,null));
 
         repository = EncryptRepository.get(application);
-
-
     }
 
     public LiveData<EncryptViewState> getViewState(){
         return viewStates;
     }
 
-    public Uri setFilePath(Uri filePath){
+    public void setFilePath(Uri filePath){
         this.filePath = filePath;
-
-        return filePath;
+        Log.d(TAG, "setFilePath: "+filePath);
     }
 
-    String setTextData(String textData){
+    public void setTextData(String textData){
         this.textData = textData;
-
-        return textData;
+        Log.d(TAG, "setTextData: "+textData);
     }
 
     public void encrypt(){
         Uri encrypt = repository.Encrypt(getFilePath(),getTextData());
-        viewStates.setValue(new EncryptViewState(true,null,null));
-
         try{
             viewStates.postValue(new EncryptViewState(false,encrypt,null));
 

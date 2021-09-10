@@ -26,6 +26,7 @@ public class EncryptFragment extends Fragment {
     FragmentEncryptBinding binding;
     EncryptsMotor motor;
     Uri EncryptedUri;
+    Uri selectedImageUri;
 
     @Nullable
     @Override
@@ -48,6 +49,7 @@ public class EncryptFragment extends Fragment {
 
     //method to encrypt text in image on click
     void encrypt(View view){
+        motor.setFilePath(selectedImageUri);
         if (validateInputData()){
             motor.encrypt();
             motor.getViewState().observe(this, encryptViewState -> {
@@ -92,7 +94,8 @@ public class EncryptFragment extends Fragment {
                 @Override
                 public void onActivityResult(Uri result) {
                     Log.d(TAG, "onActivityResult: "+result);
-                    motor.setFilePath(result);
+                    binding.selectedImage.setImageURI(result);
+                    selectedImageUri = result;
                 }
             });
 

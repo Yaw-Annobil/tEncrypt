@@ -10,9 +10,9 @@ import android.net.Uri;
  * the error if we have
  */
 public class EncryptViewState {
-    final boolean isLoading;
-    final Uri uri;
-    final Throwable error;
+    public final boolean isLoading;
+    public final Uri uri;
+    public final Throwable error;
 
     public EncryptViewState(boolean isLoading, Uri uri,Throwable error) {
         this.isLoading = isLoading;

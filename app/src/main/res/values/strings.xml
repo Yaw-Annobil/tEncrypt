@@ -5,4 +5,7 @@
     <string name="history">History</string>
     <string name="set">Set</string>
     <string name="template">Template</string>
+    <string name="enter_neccessaru_fields">Please Enter text and Select an Image</string>
+    <string name="enter_text_data">Please Enter a text to Encrypt</string>
+    <string name="image_ecrypt">Please Select an Image to Encrypt</string>
 </resources>

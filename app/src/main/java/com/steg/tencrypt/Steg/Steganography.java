@@ -28,13 +28,13 @@ public class Steganography {
      *Sterganography constructor
      */
 
-    public Uri encode(String filePath, String textData) {
-        File file = new File(filePath);
+    public Uri encode(Uri filePath, String textData) {
+        File file = new File(String.valueOf(filePath));
 
         Bitmap copyImage = getImage(filePath);
         Bitmap newImage = addTextToImage(copyImage,textData);
 
-       String newFileName = filePath.split(".")[-1];
+       String newFileName = String.valueOf(filePath).split(".")[-1];
 
         return saveImage(newImage,newFileName);
 
@@ -46,7 +46,7 @@ public class Steganography {
      * @param filePath is the filepath of the selected image
      * @return return the extracted text data
      */
-    String decode(String filePath){
+    String decode(Uri filePath){
 
         byte[] decode;
         Bitmap image = getImage(filePath);
@@ -93,8 +93,8 @@ public class Steganography {
      */
 
 
-    Bitmap getImage(String filePath){
-        File file = new File(filePath);
+    Bitmap getImage(Uri filePath){
+        File file = new File(String.valueOf(filePath));
 
         final Bitmap[] mbitmap = {null};
 

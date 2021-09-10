@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 public class EncryptsMotor extends AndroidViewModel {
     EncryptRepository repository;
-    String filePath;
+    Uri filePath;
     String textData;
     private final MutableLiveData<EncryptViewState> viewStates = new MutableLiveData<>();
     public EncryptsMotor(@NonNull Application application) {
@@ -20,21 +20,14 @@ public class EncryptsMotor extends AndroidViewModel {
 
         repository = EncryptRepository.get(application);
 
-        Uri encrypt = repository.Encrypt(getFilePath(),getTextData());
 
-        try{
-            viewStates.postValue(new EncryptViewState(false,encrypt,null));
-
-        }catch (Exception e){
-            viewStates.postValue(new EncryptViewState(false,null,e));
-        }
     }
 
-    LiveData<EncryptViewState> getViewState(){
+    public LiveData<EncryptViewState> getViewState(){
         return viewStates;
     }
 
-    String setFilePath(String filePath){
+    public Uri setFilePath(Uri filePath){
         this.filePath = filePath;
 
         return filePath;
@@ -46,11 +39,23 @@ public class EncryptsMotor extends AndroidViewModel {
         return textData;
     }
 
-    String getFilePath(){
+    public void encrypt(){
+        Uri encrypt = repository.Encrypt(getFilePath(),getTextData());
+        viewStates.setValue(new EncryptViewState(true,null,null));
+
+        try{
+            viewStates.postValue(new EncryptViewState(false,encrypt,null));
+
+        }catch (Exception e){
+            viewStates.postValue(new EncryptViewState(false,null,e));
+        }
+    }
+
+    public Uri getFilePath(){
         return filePath;
     }
 
-    String getTextData(){
+    public String getTextData(){
         return textData;
     }
 

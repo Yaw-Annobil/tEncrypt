@@ -3,6 +3,7 @@ package com.steg.tencrypt.ui;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.steg.tencrypt.databinding.FragmentEncryptBinding;
 import com.steg.tencrypt.utilities.EncryptsMotor;
 
 public class EncryptFragment extends Fragment {
-    private static final int SELECT_PICTURE = 200;
+    private static final String TAG = EncryptFragment.class.getSimpleName();
     FragmentEncryptBinding binding;
     EncryptsMotor motor;
     Uri EncryptedUri;
@@ -70,14 +71,14 @@ public class EncryptFragment extends Fragment {
 
     //validate if all inputs have been entered
     boolean validateInputData(){
-        if (!TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
-            Snackbar.make(requireView(), requireContext().getString(R.string.image_ecrypt),Snackbar.LENGTH_LONG).show();
+        if (!TextUtils.isEmpty(motor.getTextData()) && !TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
+            Snackbar.make(requireView(), requireContext().getString(R.string.enter_neccessaru_fields),Snackbar.LENGTH_LONG).show();
         }
         else if (!TextUtils.isEmpty(motor.getTextData())){
             Snackbar.make(requireView(), requireContext().getString(R.string.enter_text_data),Snackbar.LENGTH_LONG).show();
         }
-        else if (!TextUtils.isEmpty(motor.getTextData()) && !TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
-            Snackbar.make(requireView(), requireContext().getString(R.string.enter_neccessaru_fields),Snackbar.LENGTH_LONG).show();
+        else if (!TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
+            Snackbar.make(requireView(), requireContext().getString(R.string.image_ecrypt),Snackbar.LENGTH_LONG).show();
         }
         else {
             return true;
@@ -90,6 +91,7 @@ public class EncryptFragment extends Fragment {
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
+                    Log.d(TAG, "onActivityResult: "+result);
                     motor.setFilePath(result);
                 }
             });

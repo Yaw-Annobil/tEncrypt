@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/encryptFragment"
         android:name="com.steg.tencrypt.ui.EncryptFragment"
-        android:label="Encrypt Fragment"
+        android:label="Encrypt"
         >
         <action
             android:id="@+id/preview"
@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/decryptFragment"
         android:name="com.steg.tencrypt.ui.DecryptFragment"
-        android:label="Decrypt Fragment" >
+        android:label="Decrypt" >
         <argument
             app:argType="string"
             android:name="string"/>

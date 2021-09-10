@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class CryptEntity {
-    @PrimaryKey;
+    @PrimaryKey
     @NonNull
     public String filePath;
 

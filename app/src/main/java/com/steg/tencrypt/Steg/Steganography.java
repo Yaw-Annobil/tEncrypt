@@ -2,15 +2,13 @@ package com.steg.tencrypt.Steg;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 
@@ -28,13 +26,13 @@ public class Steganography {
      *Sterganography constructor
      */
 
-    public Uri encode(Uri filePath, String textData) {
+    public String encode(Uri filePath, String textData) {
         File file = new File(String.valueOf(filePath));
 
         Bitmap copyImage = getImage(filePath);
         Bitmap newImage = addTextToImage(copyImage,textData);
 
-       String newFileName = String.valueOf(filePath).split(".")[-1];
+       String newFileName = "Encrypted_" + new File(String.valueOf(filePath)).getName();
 
         return saveImage(newImage,newFileName);
 
@@ -65,7 +63,7 @@ public class Steganography {
 
 
 
-    Uri saveImage(Bitmap bitmap,String filename){
+    String saveImage(Bitmap bitmap, String filename){
 
         String root = context.getExternalFilesDir(null).toString();
         File myDir = new File(root + "/Crypts");
@@ -74,7 +72,7 @@ public class Steganography {
         int n = 10000;
         n = generator.nextInt(n);
 
-        File file = new File(myDir, filename);
+        File file = new File(myDir, filename+".png");
         if (file.exists()) file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
@@ -85,7 +83,7 @@ public class Steganography {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Uri.fromFile(file);
+        return file.getAbsolutePath();
     }
 
     /**
@@ -94,28 +92,13 @@ public class Steganography {
 
 
     Bitmap getImage(Uri filePath){
-        File file = new File(String.valueOf(filePath));
-
-        final Bitmap[] mbitmap = {null};
-
-        Picasso.get().load(file).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                mbitmap[0] = bitmap;
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
-
-        return mbitmap[0];
+        Bitmap mbitmap = null;
+        try {
+            mbitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mbitmap;
     }
 
     Bitmap addTextToImage(Bitmap image, String text){

@@ -36,7 +36,7 @@ class EncryptRepository {
         steganography = new Steganography(applicationContext);
     }
 
-    Uri Encrypt(Uri filePath, String textData){
+    String Encrypt(Uri filePath, String textData){
         return steganography.encode(filePath,textData);
     }
 

@@ -1,5 +1,6 @@
 package com.steg.tencrypt.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,13 +25,16 @@ import com.steg.tencrypt.R;
 import com.steg.tencrypt.databinding.FragmentEncryptBinding;
 import com.steg.tencrypt.utilities.EncryptsMotor;
 
+import java.io.File;
+
 public class EncryptFragment extends Fragment {
     private static final String TAG = EncryptFragment.class.getSimpleName();
     FragmentEncryptBinding binding;
     EncryptsMotor motor;
-    Uri EncryptedUri;
+    String EncryptedUri;
     Uri selectedImageUri;
     String textData;
+    Uri shareUri;
 
     @Nullable
     @Override
@@ -64,19 +69,22 @@ public class EncryptFragment extends Fragment {
 
         binding.selectImage.setOnClickListener(this::chooser);
         binding.done.setOnClickListener(this::encrypt);
+        binding.share.setOnClickListener(this::share);
     }
 
     //method to encrypt text in image on click
     void encrypt(View view){
         motor.setFilePath(selectedImageUri);
+        motor.setTextData(textData);
         if (validateInputData()){
-            motor.encrypt(selectedImageUri,textData);
+            motor.encrypt();
             motor.getViewState().observe(this, encryptViewState -> {
                 binding.progressCircular.setVisibility(encryptViewState.isLoading?View.VISIBLE:View.GONE);
 
                 if(!encryptViewState.isLoading && encryptViewState.error == null){
                     binding.share.setVisibility(View.VISIBLE);
                     EncryptedUri = encryptViewState.uri;
+                    Snackbar.make(requireView(), getString(R.string.encrypt_done),Snackbar.LENGTH_LONG).show();
                 }
                 else if (encryptViewState.error != null){
                     Snackbar.make(requireView(),String.valueOf(encryptViewState.error),Snackbar.LENGTH_LONG).show();
@@ -92,13 +100,13 @@ public class EncryptFragment extends Fragment {
 
     //validate if all inputs have been entered
     boolean validateInputData(){
-        if (!TextUtils.isEmpty(motor.getTextData()) && !TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
+        if (TextUtils.isEmpty(motor.getTextData()) && TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
             Snackbar.make(requireView(), requireContext().getString(R.string.enter_neccessaru_fields),Snackbar.LENGTH_LONG).show();
         }
-        else if (!TextUtils.isEmpty(motor.getTextData())){
+        else if (TextUtils.isEmpty(motor.getTextData())){
             Snackbar.make(requireView(), requireContext().getString(R.string.enter_text_data),Snackbar.LENGTH_LONG).show();
         }
-        else if (!TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
+        else if (TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
             Snackbar.make(requireView(), requireContext().getString(R.string.image_ecrypt),Snackbar.LENGTH_LONG).show();
         }
         else {
@@ -106,6 +114,16 @@ public class EncryptFragment extends Fragment {
         }
 
         return false;
+    }
+
+    void share(View view){
+        File file = new File(EncryptedUri);
+        Uri uri = FileProvider.getUriForFile(requireContext(),requireContext().getPackageName() + ".provider",file);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.setType(requireContext().getContentResolver().getType(uri));
+        startActivity(Intent.createChooser(intent,"Share File"));
     }
 
     ActivityResultLauncher<String> getContent = registerForActivityResult(new ActivityResultContracts.GetContent(),

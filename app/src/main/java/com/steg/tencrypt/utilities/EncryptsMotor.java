@@ -44,13 +44,15 @@ public class EncryptsMotor extends AndroidViewModel {
         Log.d(TAG, "setTextData: "+textData);
     }
 
-    public void encrypt(Uri filePath, String textData){
-        Uri encrypt = repository.Encrypt(filePath,textData);
+    public void encrypt(){
+        if(getFilePath() != null){
+            String encrypt = repository.Encrypt(getFilePath(),getTextData());
         try{
             viewStates.postValue(new EncryptViewState(false,encrypt,null));
 
         }catch (Exception e){
             viewStates.postValue(new EncryptViewState(false,null,e));
+        }
         }
     }
 

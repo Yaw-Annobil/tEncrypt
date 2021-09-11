@@ -61,7 +61,7 @@
 
     </com.steg.tencrypt.utilities.MaskedCardView>
 
-    <TextView
+    <EditText
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/tcrypt_standard_dimen"
@@ -70,12 +70,15 @@
         app:layout_constraintTop_toBottomOf="@id/holder"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center"
-        android:autoSizeTextType="uniform"
-        android:padding="32dp"
         android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="@tools:sample/cities"
-        android:id="@+id/decrypt_text"/>
+        android:id="@+id/decrypt_text"
+        android:textColor="@color/black"
+        android:inputType="textLongMessage"
+        android:enabled="false"/>
+
+
 
 
 

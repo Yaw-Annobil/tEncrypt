@@ -3,6 +3,9 @@ package com.steg.tencrypt.utilities;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.steg.tencrypt.Steg.Steganography;
 
@@ -15,6 +18,7 @@ import java.util.Map;
 class EncryptRepository {
     static volatile EncryptRepository INSTANCE;
     Steganography steganography;
+    Encode encoded;
 
     public final Map<String, CryptModel> cryptItems = new HashMap<>();
 
@@ -33,11 +37,18 @@ class EncryptRepository {
 
 
     public EncryptRepository(Context applicationContext) {
+        encoded = new Encode(applicationContext);
         steganography = new Steganography(applicationContext);
     }
 
-    String Encrypt(Uri filePath, String textData){
-        return steganography.encode(filePath,textData);
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    Uri Encrypt(Uri filePath, String textData){
+        return encoded.encode(filePath,textData);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    String Decrypt(Uri filePath){
+        return steganography.getMessage(steganography.decodeMessage(filePath));
     }
 
 

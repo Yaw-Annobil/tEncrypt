@@ -102,8 +102,11 @@ public class BitmapUtils {
         return pixels;
     }
 
-    public static void setPixels(Bitmap bitmap, int[] pixels) {
+    public static void setPixel(Bitmap bitmap, int[] pixels) {
+        bitmap = bitmap.copy( Bitmap.Config.ARGB_8888 , true);
+
         int[] bounds = getMinimumAreaBounds(pixels.length, bitmap.getWidth());
+
         bitmap.setPixels(pixels, 0, bounds[0], 0, 0, bounds[0], bounds[1]);
     }
 

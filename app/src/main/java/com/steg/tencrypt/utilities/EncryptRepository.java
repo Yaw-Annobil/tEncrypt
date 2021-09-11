@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 
 import com.steg.tencrypt.Steg.Steganography;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,13 +43,13 @@ class EncryptRepository {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    Uri Encrypt(Uri filePath, String textData){
+    String Encrypt(Uri filePath, String textData) throws IOException {
         return encoded.encode(filePath,textData);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     String Decrypt(Uri filePath){
-        return steganography.getMessage(steganography.decodeMessage(filePath));
+        return steganography.decodedValue(filePath);
     }
 
 

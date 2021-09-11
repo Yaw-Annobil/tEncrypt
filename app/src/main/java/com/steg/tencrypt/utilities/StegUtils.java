@@ -3,7 +3,6 @@ package com.steg.tencrypt.utilities;
 import android.util.Log;
 
 public class StegUtils {
-
     /**
      * Max length to attempt to decode.
      */
@@ -22,6 +21,8 @@ public class StegUtils {
     public static int[] encode(int[] pixels, String message) {
         Log.d("Steganography.Encode", "Encode Begin");
         byte[] data = message.getBytes();
+
+        Log.d("Steganography.Encode", "encode: "+pixels.length);
 
         //Insert length into data
         {
@@ -51,7 +52,8 @@ public class StegUtils {
             }
         }
 
-        Log.d("Steganography.Encode", "Encode End");
+
+        Log.d("Steganography.Encode", "Encode End "+ pixels.length);
 
         return pixels;
     }

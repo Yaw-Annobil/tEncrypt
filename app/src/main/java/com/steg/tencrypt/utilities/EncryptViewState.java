@@ -1,7 +1,5 @@
 package com.steg.tencrypt.utilities;
 
-import android.net.Uri;
-
 /**
  * The viewstate does three work
  * whether or not the image isloaded
@@ -11,10 +9,10 @@ import android.net.Uri;
  */
 public class EncryptViewState {
     public final boolean isLoading;
-    public final Uri uri;
+    public final String uri;
     public final Throwable error;
 
-    public EncryptViewState(boolean isLoading, Uri uri, Throwable error) {
+    public EncryptViewState(boolean isLoading, String uri, Throwable error) {
         this.isLoading = isLoading;
         this.uri = uri;
         this.error = error;

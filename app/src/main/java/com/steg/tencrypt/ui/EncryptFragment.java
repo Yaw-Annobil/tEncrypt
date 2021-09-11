@@ -2,6 +2,7 @@ package com.steg.tencrypt.ui;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +28,7 @@ import com.steg.tencrypt.databinding.FragmentEncryptBinding;
 import com.steg.tencrypt.utilities.EncryptsMotor;
 
 import java.io.File;
+import java.io.IOException;
 
 public class EncryptFragment extends Fragment {
     private static final String TAG = EncryptFragment.class.getSimpleName();
@@ -44,6 +47,7 @@ public class EncryptFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,17 +72,24 @@ public class EncryptFragment extends Fragment {
         });
 
         binding.selectImage.setOnClickListener(this::chooser);
-        binding.done.setOnClickListener(this::encrypt);
+        binding.done.setOnClickListener(view1 -> {
+            try {
+                encrypt(view1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         binding.share.setOnClickListener(this::share);
     }
 
     //method to encrypt text in image on click
-    void encrypt(View view){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    void encrypt(View view) throws IOException {
         motor.setFilePath(selectedImageUri);
         motor.setTextData(textData);
         if (validateInputData()){
             motor.encrypt();
-            motor.getViewState().observe(this, encryptViewState -> {
+            motor.getViewState().observe(getViewLifecycleOwner(), encryptViewState -> {
                 binding.progressCircular.setVisibility(encryptViewState.isLoading?View.VISIBLE:View.GONE);
 
                 if(!encryptViewState.isLoading && encryptViewState.error == null){

@@ -12,6 +12,8 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.steg.tencrypt.utilities.BitmapUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -22,13 +24,14 @@ import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
 import java.util.Random;
 
 
 
 public class Steganography {
     final static String TAG = Steganography.class.getSimpleName();
-    Context context;
+    static Context context;
 
     public Steganography(Context context){
         this.context = context;
@@ -76,7 +79,7 @@ public class Steganography {
 
 
 
-    String saveImage(Bitmap bitmap, String filename){
+    public static String saveImage(Bitmap bitmap, String filename){
 
         String root = context.getExternalFilesDir(null).toString();
         File myDir = new File(root + "/Crypts");
@@ -104,7 +107,7 @@ public class Steganography {
      */
 
 
-    Bitmap getImage(Uri filePath) {
+    static Bitmap getImage(Uri filePath) {
 
         ParcelFileDescriptor parcelFileDescriptor =
                 null;
@@ -126,7 +129,7 @@ public class Steganography {
         }
 
         if(!image.isMutable()){
-            image = convertToMutable(image);
+            image = image.copy(Bitmap.Config.ARGB_8888,true);
         }
         return image;
     }
@@ -384,8 +387,10 @@ public class Steganography {
      * @return Pixels encoded with message.
      */
     public static int[] encode(int[] pixels, String message) {
-        Log.d("Steganography.Encode", "Encode Begin");
         byte[] data = message.getBytes();
+        Log.d(TAG, "encode: "+ Arrays.toString(data));
+        Log.d("Steganography.Encode", "Encode Begin "+ Arrays.toString(data));
+
 
         //Insert length into data
         {
@@ -417,22 +422,28 @@ public class Steganography {
 
         Log.d("Steganography.Encode", "Encode End");
 
+        Log.d(TAG, "encode: "+ Arrays.toString(pixels));
+
         return pixels;
     }
     /**
      * Decodes data out of pixels, and constructs a String out of it. .
      * Each byte of data is constructed out of the LSB of 8 consecutive pixels.
-     * @param pixels Pixels as (A)RGB integers: R=0xFF0000, G=0x00FF00, B=0x0000FF
      * @return Decoded data.
      */
-    public static String decode(int[] pixels) {
-        Log.d("Steganography.Decode", "Decode Begin");
+    public String decodedValue(Uri filePath) {
+        Bitmap bitmap = getImage(filePath);
+        int[] pixels = BitmapUtils.getPixels(bitmap);
 
-        int pixelIndex = 0;
+        Log.d("Steganography.Decode", "Decode Begin "+pixels.length);
+
+        int pixelIndex = 32;
 
         //Decode length;
         int length = decodeBitsFromPixels(pixels, 32, pixelIndex);
-        pixelIndex += 32;
+        pixelIndex += 0;
+
+        Log.d(TAG, "decodedValue: "+length);
 
         if (length < 0 || length > MAX_DECODABLE_LENGTH) {
             throw new IllegalArgumentException("Failed to decode. Are you sure the image is encoded?");
@@ -515,6 +526,7 @@ public class Steganography {
 
     public static void setPixels(Bitmap bitmap, int[] pixels) {
         int[] bounds = getMinimumAreaBounds(pixels.length, bitmap.getWidth());
+        bitmap = bitmap.copy( Bitmap.Config.ARGB_8888 , true);
         bitmap.setPixels(pixels, 0, bounds[0], 0, 0, bounds[0], bounds[1]);
     }
 
@@ -580,6 +592,8 @@ public class Steganography {
 
         return imgIn;
     }
+
+
 
 
 }

@@ -3,7 +3,12 @@ package com.steg.tencrypt.utilities;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
+
+import com.steg.tencrypt.Steg.Steganography;
+
+import java.io.IOException;
 
 public class Encode {
     Context context;
@@ -11,8 +16,8 @@ public class Encode {
     public Encode(Context context){
         this.context = context;
     }
-    public Uri encode(Uri filePath, String message){
-        Bitmap bitmap = BitmapUtils.decodeFile(FileUtils.uriToFilePath(context,filePath));
+    public String encode(Uri filePath, String message) throws IOException {
+        Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),filePath);
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
         int numberOfPixels = w*h;
@@ -30,13 +35,15 @@ public class Encode {
                 message
         );
 
-        BitmapUtils.setPixels(bitmap, encodedPixels);
+        BitmapUtils.setPixel(bitmap, encodedPixels);
 
-        Uri resultUri = FileUtils.saveBitmap(bitmap);
+
+
+//        Uri resultUri = FileUtils.saveBitmap(bitmap);
 
         Log.d(TAG, "encode: encoding successful");
 
-        return resultUri;
+        return Steganography.saveImage(bitmap,"Encrypted");
 
     }
 

@@ -11,6 +11,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
+
 public class EncryptsMotor extends AndroidViewModel {
     EncryptRepository repository;
     Uri filePath;
@@ -54,9 +56,9 @@ public class EncryptsMotor extends AndroidViewModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void encrypt(){
+    public void encrypt() throws IOException {
         if(getFilePath() != null){
-            Uri encrypt = repository.Encrypt(getFilePath(),getTextData());
+            String encrypt = repository.Encrypt(getFilePath(),getTextData());
         try{
             viewStates.postValue(new EncryptViewState(false,encrypt,null));
 

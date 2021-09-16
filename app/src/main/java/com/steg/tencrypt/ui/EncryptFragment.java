@@ -95,7 +95,7 @@ public class EncryptFragment extends Fragment {
                 if(!encryptViewState.isLoading && encryptViewState.error == null){
                     binding.share.setVisibility(View.VISIBLE);
                     EncryptedUri = encryptViewState.uri;
-                    Snackbar.make(requireView(), getString(R.string.encrypt_done),Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(requireView(), getString(R.string.encrypt_done,EncryptedUri),Snackbar.LENGTH_LONG).show();
                 }
                 else if (encryptViewState.error != null){
                     Snackbar.make(requireView(),String.valueOf(encryptViewState.error),Snackbar.LENGTH_LONG).show();

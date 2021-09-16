@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id "androidx.navigation.safeargs"
+    id 'com.chaquo.python'
 }
 apply plugin: 'kotlin-android'
 
@@ -13,6 +14,18 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        python{
+            buildPython "C:/Users/johna/AppData/Local/Programs/Python/Python39/python.exe"
+        }
+
+        python{
+            pip{
+                install "pillow"
+            }
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

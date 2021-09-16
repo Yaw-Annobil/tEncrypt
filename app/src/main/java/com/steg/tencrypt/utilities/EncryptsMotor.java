@@ -1,6 +1,7 @@
 package com.steg.tencrypt.utilities;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -11,6 +12,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.steg.tencrypt.Steg.Steganography;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class EncryptsMotor extends AndroidViewModel {
@@ -58,7 +62,7 @@ public class EncryptsMotor extends AndroidViewModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void encrypt() throws IOException {
         if(getFilePath() != null){
-            String encrypt = repository.Encrypt(getFilePath(),getTextData());
+            String encrypt = repository.Encrypt(getBytes(getFilePath()),getTextData());
         try{
             viewStates.postValue(new EncryptViewState(false,encrypt,null));
 
@@ -71,7 +75,7 @@ public class EncryptsMotor extends AndroidViewModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void decrypt(){
         if(getFilePath() != null){
-            String decrypt = repository.Decrypt(getFilePath());
+            String decrypt = repository.Decrypt(getBytes(getFilePath()));
             Log.d(TAG, "decrypt: "+decrypt);
         try{
         decryptViewState.postValue(new DecryptViewState( decrypt,null,false));
@@ -81,7 +85,15 @@ public class EncryptsMotor extends AndroidViewModel {
         }
     }
 
+    public byte[] getBytes(Uri filePath){
+        Bitmap bitmap = Steganography.getImage(filePath);
 
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+
+        return stream.toByteArray();
+    }
 
     public Uri getFilePath(){
         return filePath;

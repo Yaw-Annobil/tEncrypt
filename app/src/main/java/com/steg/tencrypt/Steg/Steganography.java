@@ -107,7 +107,7 @@ public class Steganography {
      */
 
 
-    static Bitmap getImage(Uri filePath) {
+    public static Bitmap getImage(Uri filePath) {
 
         ParcelFileDescriptor parcelFileDescriptor =
                 null;

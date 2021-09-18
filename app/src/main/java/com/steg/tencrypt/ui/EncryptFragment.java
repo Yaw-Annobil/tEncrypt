@@ -37,7 +37,6 @@ public class EncryptFragment extends Fragment {
     String EncryptedUri;
     Uri selectedImageUri;
     String textData;
-    Uri shareUri;
 
     @Nullable
     @Override
@@ -90,7 +89,8 @@ public class EncryptFragment extends Fragment {
         if (validateInputData()){
             motor.encrypt();
             motor.getViewState().observe(getViewLifecycleOwner(), encryptViewState -> {
-                binding.progressCircular.setVisibility(encryptViewState.isLoading?View.VISIBLE:View.GONE);
+
+//                binding.progressCircular.setVisibility(encryptViewState.isLoading?View.GONE:View.VISIBLE);
 
                 if(!encryptViewState.isLoading && encryptViewState.error == null){
                     binding.share.setVisibility(View.VISIBLE);

@@ -32,6 +32,7 @@ class EncryptRepository {
 
 
 
+
     synchronized static EncryptRepository get(Context context){
         if(INSTANCE == null){
             INSTANCE = new EncryptRepository(context.getApplicationContext());

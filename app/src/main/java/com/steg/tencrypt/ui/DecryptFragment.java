@@ -63,9 +63,15 @@ public class DecryptFragment extends Fragment {
                     motor.decrypt();
 
                     motor.getDecryptViewState().observe(requireActivity(), decryptViewState -> {
+                        if(decryptViewState.isLoading){
+                            binding.progressCircular.setVisibility(View.VISIBLE);
+                        }else{
+                            binding.progressCircular.setVisibility(View.GONE);
+                        }
                         if(decryptViewState.throwable == null){
                             binding.decryptText.setText(decryptViewState.textData);
                         }else{
+                            binding.progressCircular.setVisibility(View.GONE);
                             binding.decryptText.setTextColor(requireContext().getColor(android.R.color.holo_red_light));
                             binding.decryptText.setText(decryptViewState.throwable.toString());
                         }

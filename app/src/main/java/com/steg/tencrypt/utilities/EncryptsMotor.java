@@ -30,10 +30,6 @@ public class EncryptsMotor extends AndroidViewModel {
 
         dataStates.setValue(new EncryptDataState(null,null));
 
-        viewStates.setValue(new EncryptViewState(true,null,null));
-
-        decryptViewState.setValue(new DecryptViewState(null,null,true));
-
         repository = EncryptRepository.get(application);
     }
 
@@ -61,6 +57,7 @@ public class EncryptsMotor extends AndroidViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void encrypt() throws IOException {
+        viewStates.setValue(new EncryptViewState(true,null,null));
         if(getFilePath() != null){
             String encrypt = repository.Encrypt(getBytes(getFilePath()),getTextData());
         try{
@@ -74,6 +71,7 @@ public class EncryptsMotor extends AndroidViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void decrypt(){
+        decryptViewState.setValue(new DecryptViewState(null,null,true));
         if(getFilePath() != null){
             String decrypt = repository.Decrypt(getBytes(getFilePath()));
             Log.d(TAG, "decrypt: "+decrypt);

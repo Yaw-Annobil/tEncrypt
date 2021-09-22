@@ -80,7 +80,7 @@
         android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
         android:layout_marginStart="@dimen/tcrypt_standard_dimen"
         android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
-        android:backgroundTint="@color/encrypt_color"
+        android:backgroundTint="@color/decrypt_color"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +127,7 @@
         android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
         android:layout_marginStart="@dimen/tcrypt_standard_dimen"
         android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
-        android:backgroundTint="@color/encrypt_color"
+        android:backgroundTint="@color/history_color"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,7 +173,7 @@
         android:layout_marginLeft="@dimen/tcrypt_standard_dimen"
         android:layout_marginStart="@dimen/tcrypt_standard_dimen"
         android:layout_marginEnd="@dimen/tcrypt_standard_dimen"
-        android:backgroundTint="@color/encrypt_color"
+        android:backgroundTint="@color/set_color"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -65,8 +65,8 @@ class EncryptRepository {
 
     }
 
-    LiveData<CryptResult> save(Uri filePath, String text){
-        return new SaveLiveData(text,filePath,executor,db.store());
+    LiveData<CryptResult> save(Uri filePath, String text,String type){
+        return new SaveLiveData(text,filePath,type,executor,db.store());
     }
 
     LiveData<List<CryptModel>> load(){
@@ -118,11 +118,13 @@ class EncryptRepository {
         private final Uri filePath;
         private final CryptStore store;
         private final Executor executor;
+        private final String type;
 
-        SaveLiveData(String textData, Uri filePath, Executor executor,CryptStore store){
+        SaveLiveData(String textData, Uri filePath,String type, Executor executor,CryptStore store){
             this.textData = textData;
             this.filePath = filePath;
             this.executor = executor;
+            this.type = type;
             this.store = store;
         }
 
@@ -135,6 +137,7 @@ class EncryptRepository {
                    entity.dateAdded = System.currentTimeMillis();
                    entity.textData = textData;
                    entity.filePath = filePath;
+                   entity.type = type;
 
                    store.save(entity);
                    postValue(new CryptResult(new CryptModel(entity),null));

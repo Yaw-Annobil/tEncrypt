@@ -7,10 +7,13 @@
     <data>
         <variable
             name="textData"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         <variable
             name="imageUrl"
-            type="android.net.Uri" />
+            type="android.net.Uri"/>
+        <variable
+            name="type"
+            type="java.lang.String"/>
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
@@ -27,19 +30,33 @@
         <com.steg.tencrypt.utilities.MaskedCardView xmlns:android="http://schemas.android.com/apk/res/android"
 
             android:layout_width="300dp"
-            android:layout_height="600dp"
+            android:layout_height="500dp"
             android:elevation="8dp"
             android:onClick="@{clickListener}"
             app:cardPreventCornerOverlap="false"
             app:circularflow_angles="25"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card2">
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/type"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/first_names"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:alpha="0.2"
+                    android:text="@{type}"
+                    android:layout_height="0dp"
+                    android:textColor="@color/black"
+                    android:layout_margin="8dp"
+                    android:layout_width= "0dp" />
 
 
                 <ImageView
+                    android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:contentDescription="@string/encrypt"

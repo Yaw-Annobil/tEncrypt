@@ -11,7 +11,7 @@ public class CryptModel {
     /**
      * This string is the path of the encrypted image file
      */
-    final Uri filePath;
+    public final Uri filePath;
 
     /**
      * textdata is the textdata either extracted or created

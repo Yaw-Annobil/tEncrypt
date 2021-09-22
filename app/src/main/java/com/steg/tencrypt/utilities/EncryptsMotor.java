@@ -30,7 +30,7 @@ public class EncryptsMotor extends AndroidViewModel {
     private final MutableLiveData<DecryptViewState> decryptViewState = new MutableLiveData<>();
     private MediatorLiveData<Event<CryptResult>> saveEvent = new MediatorLiveData<>();
     private LiveData<Event<CryptResult>> lastSave;
-    final LiveData<MainViewState> states;
+    public final LiveData<MainViewState> states;
     public EncryptsMotor(@NonNull Application application) {
         super(application);
         repository = EncryptRepository.get(application);
@@ -45,14 +45,14 @@ public class EncryptsMotor extends AndroidViewModel {
                 });
     }
 
-    LiveData<Event<CryptResult>> getSaveStates(){
+    public LiveData<Event<CryptResult>> getSaveEvents(){
         return saveEvent;
     }
 
 
-    void save(Uri filePath,String textData){
+    public void save(Uri filePath, String textData, String type){
         saveEvent.removeSource(lastSave);
-        lastSave = Transformations.map(repository.save(filePath,textData),Event::new);
+        lastSave = Transformations.map(repository.save(filePath,textData,type),Event::new);
         saveEvent.addSource(lastSave, event -> saveEvent.setValue(event));
     }
 

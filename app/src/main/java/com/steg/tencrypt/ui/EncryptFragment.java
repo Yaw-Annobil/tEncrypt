@@ -54,6 +54,7 @@ public class EncryptFragment extends Fragment {
         //initialize the motor
         motor = new ViewModelProvider(this).get(EncryptsMotor.class);
 
+
         binding.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,10 +75,25 @@ public class EncryptFragment extends Fragment {
         binding.done.setOnClickListener(view1 -> {
             try {
                 encrypt(view1);
+                motor.getSaveEvents().observe(requireActivity(), event -> event.handle(result -> {
+                    String message;
+
+                    if (result.throwable == null) {
+                        message = result.content.filePath + " was saved!";
+                    }
+                    else {
+                        message = result.throwable.getLocalizedMessage();
+                    }
+
+                    Log.d(TAG, "onViewCreated: "+message);
+                }));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
+
+
         binding.share.setOnClickListener(this::share);
     }
 
@@ -87,15 +103,20 @@ public class EncryptFragment extends Fragment {
         motor.setFilePath(selectedImageUri);
         motor.setTextData(textData);
         if (validateInputData()){
+            binding.progressCircular.setVisibility(View.VISIBLE);
             motor.encrypt();
             motor.getViewState().observe(getViewLifecycleOwner(), encryptViewState -> {
-
-//                binding.progressCircular.setVisibility(encryptViewState.isLoading?View.GONE:View.VISIBLE);
 
                 if(!encryptViewState.isLoading && encryptViewState.error == null){
                     binding.share.setVisibility(View.VISIBLE);
                     EncryptedUri = encryptViewState.uri;
-                    Snackbar.make(requireView(), getString(R.string.encrypt_done,EncryptedUri),Snackbar.LENGTH_LONG).show();
+                    binding.progressCircular.setVisibility(View.GONE);
+                    File file = new File(EncryptedUri);
+                    Uri uri = Uri.fromFile(file);
+                    motor.save(uri,textData,getString(R.string.encrypt));
+
+
+                    Snackbar.make(requireView(), getString(R.string.encrypt_done,""),Snackbar.LENGTH_LONG).show();
                 }
                 else if (encryptViewState.error != null){
                     Snackbar.make(requireView(),String.valueOf(encryptViewState.error),Snackbar.LENGTH_LONG).show();
@@ -118,7 +139,7 @@ public class EncryptFragment extends Fragment {
             Snackbar.make(requireView(), requireContext().getString(R.string.enter_text_data),Snackbar.LENGTH_LONG).show();
         }
         else if (TextUtils.isEmpty(String.valueOf(motor.getFilePath()))){
-            Snackbar.make(requireView(), requireContext().getString(R.string.image_ecrypt),Snackbar.LENGTH_LONG).show();
+            Snackbar.make(requireView(), requireContext().getString(R.string.image_ecrypt),Snackbar.LENGTH_LONG).setAction(R.string.share, this::share).show();
         }
         else {
             return true;

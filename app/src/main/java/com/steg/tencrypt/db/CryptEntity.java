@@ -5,6 +5,9 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.steg.tencrypt.utilities.UriToStringConverter;
 
 
 /**
@@ -21,6 +24,7 @@ public class CryptEntity {
      */
     @PrimaryKey
     @NonNull
+    @TypeConverters(UriToStringConverter.class)
     public Uri filePath;
 
     /**

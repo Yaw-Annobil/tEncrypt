@@ -15,8 +15,8 @@ public class CryptAdapter extends ListAdapter<CryptState, CryptHolder>{
         private final  CryptHolder.OnCryptListener listener;
         private final Context context;
 
-        CryptAdapter(LayoutInflater inflater, Context context,
-        CryptHolder.OnCryptListener listener){
+        public CryptAdapter(LayoutInflater inflater, Context context,
+                            CryptHolder.OnCryptListener listener){
             super(CryptState.DIFF_UTIL);
             this.inflater = inflater;
             this.listener = listener;

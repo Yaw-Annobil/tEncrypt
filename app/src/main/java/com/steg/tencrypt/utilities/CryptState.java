@@ -10,13 +10,13 @@ public class CryptState {
     /**
      * This string is the path of the image file
      */
-    final Uri filePath;
+    public final Uri filePath;
 
     /**
      * textdata is the textdata either extracted or created
      */
 
-    final String textData;
+    public final String textData;
 
     public final long dateAdded;
 

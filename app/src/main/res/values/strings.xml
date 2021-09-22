@@ -9,4 +9,6 @@
     <string name="enter_text_data">Please Enter a text to Encrypt</string>
     <string name="image_ecrypt">Please Select an Image to Encrypt</string>
     <string name="encrypt_done">Encryption Done %s</string>
+    <string name="share">Share</string>
+    <string name="decryption">Decryption</string>
 </resources>

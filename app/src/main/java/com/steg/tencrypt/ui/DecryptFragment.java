@@ -3,6 +3,7 @@ package com.steg.tencrypt.ui;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.steg.tencrypt.R;
 import com.steg.tencrypt.databinding.FragmentDecryptBinding;
 import com.steg.tencrypt.utilities.EncryptsMotor;
 
@@ -60,6 +62,7 @@ public class DecryptFragment extends Fragment {
                     binding.selectedImage.setImageURI(result);
                     selectedImageUri = result;
                     motor.setFilePath(selectedImageUri);
+                    SystemClock.sleep(5000);
                     motor.decrypt();
 
                     motor.getDecryptViewState().observe(requireActivity(), decryptViewState -> {
@@ -70,6 +73,20 @@ public class DecryptFragment extends Fragment {
                         }
                         if(decryptViewState.throwable == null){
                             binding.decryptText.setText(decryptViewState.textData);
+                            motor.save(result,decryptViewState.textData,getString(R.string.decryption));
+                            motor.getSaveEvents().observe(requireActivity(), event -> event.handle(result1 -> {
+                                String message;
+
+                                if (result1.throwable == null) {
+                                    message = result1.content.filePath + " was saved!";
+                                }
+                                else {
+                                    message = result1.throwable.getLocalizedMessage();
+                                }
+
+                                Log.d(TAG, "onViewCreated: "+message);
+                            }));
+
                         }else{
                             binding.progressCircular.setVisibility(View.GONE);
                             binding.decryptText.setTextColor(requireContext().getColor(android.R.color.holo_red_light));

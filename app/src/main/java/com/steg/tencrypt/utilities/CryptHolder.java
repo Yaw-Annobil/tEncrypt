@@ -1,17 +1,17 @@
 package com.steg.tencrypt.utilities;
 
-import android.view.View;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.steg.tencrypt.databinding.CryptBinding;
 
 public class CryptHolder extends RecyclerView.ViewHolder {
 
+    private static final String TAG = CryptHolder.class.getSimpleName();
     private CryptBinding binding;
 
-    interface OnCryptListener{
+    public interface OnCryptListener{
         void onCryptClick(CryptState state);
     }
 
@@ -29,7 +29,14 @@ public class CryptHolder extends RecyclerView.ViewHolder {
         binding.setState(state);
 
         binding.setImageUrl(state.filePath);
+
+//        Picasso.get().load(new File(state.filePath.getPath())).fit().into(binding.image);
+
+        Log.d(TAG, "bind: "+state.filePath);
+
+
         binding.setTextData(state.textData);
+        binding.setType(state.type);
 
         binding.executePendingBindings();
     }

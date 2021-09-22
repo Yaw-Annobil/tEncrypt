@@ -10,7 +10,7 @@
             type="java.lang.String" />
         <variable
             name="imageUrl"
-            type="java.lang.String" />
+            type="android.net.Uri" />
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />

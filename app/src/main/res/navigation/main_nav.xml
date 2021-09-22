@@ -4,6 +4,13 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/homeFragment">
 
+    <activity
+        android:id="@+id/main_activity"
+        android:name="com.steg.tencrypt.MainActivity"
+        >
+
+    </activity>
+
     <fragment
         android:id = "@+id/splashFragment"
         android:name="com.steg.tencrypt.ui.SplashFragment"
@@ -84,7 +91,7 @@
         android:label="Decrypt" >
         <argument
             app:argType="string"
-            android:name="string"/>
+            android:name="pathData"/>
     </fragment>
 
     <fragment

@@ -7,13 +7,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(entities = CryptEntity.class, version = 0, exportSchema = false)
-abstract class CryptDatabase extends RoomDatabase {
+public abstract class CryptDatabase extends RoomDatabase {
 
-
-public static final String DB_NAME = "cryptdatabase";
+    /**
+     * initializing the database
+     */
+    public static final String DB_NAME = "cryptdatabase";
 public static volatile CryptDatabase INSTANCE;
 
-synchronized static CryptDatabase get(Context context) {
+public synchronized static CryptDatabase get(Context context) {
     if (INSTANCE == null) {
         INSTANCE =
                 Room.databaseBuilder(context, CryptDatabase.class, DB_NAME).build();
@@ -21,5 +23,5 @@ synchronized static CryptDatabase get(Context context) {
     }
     return INSTANCE;
 }
-    abstract CryptStore store();
+    public abstract CryptStore store();
 }

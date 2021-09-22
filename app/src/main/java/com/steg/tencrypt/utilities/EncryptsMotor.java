@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.steg.tencrypt.Steg.Steganography;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EncryptsMotor extends AndroidViewModel {
     EncryptRepository repository;
@@ -25,12 +28,32 @@ public class EncryptsMotor extends AndroidViewModel {
     private final MutableLiveData<EncryptDataState> dataStates = new MutableLiveData<>();
     private final MutableLiveData<EncryptViewState> viewStates = new MutableLiveData<>();
     private final MutableLiveData<DecryptViewState> decryptViewState = new MutableLiveData<>();
+    private MediatorLiveData<Event<CryptResult>> saveEvent = new MediatorLiveData<>();
+    private LiveData<Event<CryptResult>> lastSave;
+    final LiveData<MainViewState> states;
     public EncryptsMotor(@NonNull Application application) {
         super(application);
-
-        dataStates.setValue(new EncryptDataState(null,null));
-
         repository = EncryptRepository.get(application);
+        states = Transformations.map(repository.load(),
+                models ->{
+                    ArrayList<CryptState> content = new ArrayList<>();
+
+                    for (CryptModel model: models){
+                        content.add(new CryptState(model));
+                    }
+                    return new MainViewState(content);
+                });
+    }
+
+    LiveData<Event<CryptResult>> getSaveStates(){
+        return saveEvent;
+    }
+
+
+    void save(Uri filePath,String textData){
+        saveEvent.removeSource(lastSave);
+        lastSave = Transformations.map(repository.save(filePath,textData),Event::new);
+        saveEvent.addSource(lastSave, event -> saveEvent.setValue(event));
     }
 
     public LiveData<EncryptViewState> getViewState(){

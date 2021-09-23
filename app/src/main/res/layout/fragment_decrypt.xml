@@ -72,21 +72,6 @@
 
 
 
-            <ImageButton
-                android:background="@android:color/transparent"
-                android:id="@+id/selectImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_outline_insert_photo_24"
-                android:contentDescription="selected image" />
-
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,6 +83,18 @@
 
 
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:background="@android:color/transparent"
+        android:id="@+id/selectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.4"
+        android:src="@drawable/ic_outline_insert_photo_24"
+        android:contentDescription="selected image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic"
                 android:scaleType="fitXY"
-                android:contentDescription="selected image" />
+                android:contentDescription="@string/selected_image" />
 
 
 

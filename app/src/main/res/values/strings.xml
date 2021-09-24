@@ -11,4 +11,5 @@
     <string name="encrypt_done">Encryption Done %s</string>
     <string name="share">Share</string>
     <string name="decryption">Decryption</string>
+    <string name="selected_image">selected image</string>
 </resources>

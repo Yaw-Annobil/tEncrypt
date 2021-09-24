@@ -119,7 +119,8 @@ public class EncryptFragment extends Fragment {
                     Snackbar.make(requireView(), getString(R.string.encrypt_done,""),Snackbar.LENGTH_LONG).show();
                 }
                 else if (encryptViewState.error != null){
-                    Snackbar.make(requireView(),String.valueOf(encryptViewState.error),Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(requireView(),String.valueOf(encryptViewState.error),
+                            Snackbar.LENGTH_LONG).show();
                 }
             });
         }
@@ -150,7 +151,8 @@ public class EncryptFragment extends Fragment {
 
     void share(View view){
         File file = new File(EncryptedUri);
-        Uri uri = FileProvider.getUriForFile(requireContext(),requireContext().getPackageName() + ".provider",file);
+        Uri uri = FileProvider.getUriForFile(requireContext(),
+                requireContext().getPackageName() + ".provider",file);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(Intent.EXTRA_STREAM,uri);
@@ -158,7 +160,8 @@ public class EncryptFragment extends Fragment {
         startActivity(Intent.createChooser(intent,"Share File"));
     }
 
-    ActivityResultLauncher<String> getContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+    ActivityResultLauncher<String> getContent = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {

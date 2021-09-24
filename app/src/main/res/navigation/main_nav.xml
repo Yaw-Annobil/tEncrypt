@@ -92,6 +92,9 @@
         <argument
             app:argType="string"
             android:name="pathData"/>
+        <action
+            android:id="@+id/fullscreen"
+            app:destination="@id/fullScreenFragment"/>
     </fragment>
 
     <fragment

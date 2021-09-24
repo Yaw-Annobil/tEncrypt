@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.steg.tencrypt.databinding.CryptBinding;
 
+import java.io.File;
+
 public class CryptHolder extends RecyclerView.ViewHolder {
 
     private static final String TAG = CryptHolder.class.getSimpleName();
@@ -34,7 +36,7 @@ public class CryptHolder extends RecyclerView.ViewHolder {
 
         Log.d(TAG, "bind: "+state.filePath);
 
-
+        Log.d(TAG, "bind: "+new File(state.filePath.getPath()).exists());
         binding.setTextData(state.textData);
         binding.setType(state.type);
 

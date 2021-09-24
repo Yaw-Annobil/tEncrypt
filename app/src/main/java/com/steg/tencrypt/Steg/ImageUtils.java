@@ -14,12 +14,12 @@ import java.io.IOException;
 
 
 
-public class Steganography {
-    final static String TAG = Steganography.class.getSimpleName();
+public class ImageUtils {
+    final static String TAG = ImageUtils.class.getSimpleName();
     static Context context;
 
-    public Steganography(Context context){
-        Steganography.context = context;
+    public ImageUtils(Context context){
+        ImageUtils.context = context;
     }
 
 
@@ -48,8 +48,6 @@ public class Steganography {
     /**
      * get the bitmap of the image using its path
      */
-
-
     public static Bitmap getImage(Uri filePath) {
 
         ParcelFileDescriptor parcelFileDescriptor =
@@ -77,8 +75,5 @@ public class Steganography {
         }
         return image;
     }
-
-
-
 }
 

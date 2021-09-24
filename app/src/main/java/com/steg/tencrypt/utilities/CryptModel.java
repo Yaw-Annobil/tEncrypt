@@ -28,7 +28,7 @@ public class CryptModel {
 
     /**
      *
-     * @param entity is the row entry with the corresponding columns
+     * @param entity is the table name
      *
      */
 

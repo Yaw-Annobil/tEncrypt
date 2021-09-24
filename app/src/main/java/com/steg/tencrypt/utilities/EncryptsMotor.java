@@ -3,25 +3,23 @@ package com.steg.tencrypt.utilities;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.steg.tencrypt.Steg.Steganography;
+import com.steg.tencrypt.Steg.ImageUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class EncryptsMotor extends AndroidViewModel {
-    EncryptRepository repository;
+    CryptRepository repository;
     Uri filePath;
     String TAG = EncryptsMotor.class.getSimpleName();
     String textData;
@@ -33,7 +31,7 @@ public class EncryptsMotor extends AndroidViewModel {
     public final LiveData<MainViewState> states;
     public EncryptsMotor(@NonNull Application application) {
         super(application);
-        repository = EncryptRepository.get(application);
+        repository = CryptRepository.get(application);
         states = Transformations.map(repository.load(),
                 models ->{
                     ArrayList<CryptState> content = new ArrayList<>();
@@ -78,7 +76,6 @@ public class EncryptsMotor extends AndroidViewModel {
         Log.d(TAG, "setTextData: "+textData);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void encrypt() throws IOException {
         viewStates.setValue(new EncryptViewState(true,null,null));
         if(getFilePath() != null){
@@ -92,7 +89,6 @@ public class EncryptsMotor extends AndroidViewModel {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void decrypt(){
         decryptViewState.setValue(new DecryptViewState(null,null,true));
         if(getFilePath() != null){
@@ -107,7 +103,7 @@ public class EncryptsMotor extends AndroidViewModel {
     }
 
     public byte[] getBytes(Uri filePath){
-        Bitmap bitmap = Steganography.getImage(filePath);
+        Bitmap bitmap = ImageUtils.getImage(filePath);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 

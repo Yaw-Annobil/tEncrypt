@@ -13,7 +13,7 @@ import androidx.lifecycle.Transformations;
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
-import com.steg.tencrypt.Steg.Steganography;
+import com.steg.tencrypt.Steg.ImageUtils;
 import com.steg.tencrypt.db.CryptDatabase;
 import com.steg.tencrypt.db.CryptEntity;
 import com.steg.tencrypt.db.CryptStore;
@@ -29,13 +29,14 @@ import java.util.concurrent.Executors;
 
 /**
  * It is responsible for encrypting the textData into the image file
+ * Also, decrypts textData from image file
  */
-class EncryptRepository {
-    static volatile EncryptRepository INSTANCE;
-    Steganography steganography;
+class CryptRepository {
+    static volatile CryptRepository INSTANCE;
+    ImageUtils imageUtils;
     String root;
     CryptDatabase db;
-    static String TAG = EncryptRepository.class.getSimpleName();
+    static String TAG = CryptRepository.class.getSimpleName();
     Python py;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
@@ -45,9 +46,9 @@ class EncryptRepository {
 
 
 
-    synchronized static EncryptRepository get(Context context){
+    synchronized static CryptRepository get(Context context){
         if(INSTANCE == null){
-            INSTANCE = new EncryptRepository(context.getApplicationContext());
+            INSTANCE = new CryptRepository(context.getApplicationContext());
         }
 
         return INSTANCE;
@@ -56,9 +57,9 @@ class EncryptRepository {
 
 
 
-    public EncryptRepository(Context applicationContext) {
+    public CryptRepository(Context applicationContext) {
         db = CryptDatabase.get(applicationContext);
-        steganography = new Steganography(applicationContext);
+        imageUtils = new ImageUtils(applicationContext);
         Python.start(new AndroidPlatform(applicationContext));
         py = Python.getInstance();
         root = applicationContext.getExternalFilesDir(null).toString();
@@ -98,7 +99,7 @@ class EncryptRepository {
 
         Log.d(TAG, "Encrypt: saved");
 
-        return Steganography.saveImage(bitmap,"Encrypted_"+new Random().nextInt() );
+        return ImageUtils.saveImage(bitmap,"Encrypted_"+new Random().nextInt() );
     }
 
     String Decrypt(byte[] value){
